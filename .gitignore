@@ -1,3 +1,2 @@
-# Ignore build artifacts
-
+# Ignore dependency directories
 node_modules/
