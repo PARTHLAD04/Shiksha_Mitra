@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Shiksha Mitra</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Shiksha Mitra</div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="modules.html" class="nav-link">Learn</a>
+            <a href="leaderboard.html" class="nav-link" style="color: var(--primary-color);">Leaderboard</a>
+            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mb-4">Leaderboard</h1>
+
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Student Name</th>
+                        <th>Modules Completed</th>
+                        <th>Total Points</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Rows will be loaded here -->
+                    <tr>
+                        <td colspan="4">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/leaderboard.js"></script>
+</body>
+
+</html>

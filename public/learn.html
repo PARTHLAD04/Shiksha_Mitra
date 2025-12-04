@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn - Shiksha Mitra</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Shiksha Mitra</div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="modules.html" class="nav-link" style="color: var(--primary-color);">Learn</a>
+            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 id="chapter-title" class="mb-4">Loading Chapter...</h1>
+
+        <div class="grid" style="grid-template-columns: 2fr 1fr;">
+            <div>
+                <div id="video-container" class="card mb-4">
+                    <!-- Video will be loaded here -->
+                    <p>Loading Video...</p>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>Quiz</h3>
+                    <div id="quiz-container">
+                        <!-- Quiz will be loaded here -->
+                        <p>Loading Quiz...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/learn.js"></script>
+</body>
+
+</html>

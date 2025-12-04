@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Shiksha Mitra</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Shiksha Mitra</div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="nav-link" style="color: var(--primary-color);">Dashboard</a>
+            <a href="modules.html" class="nav-link">Learn</a>
+            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+            <button id="logout-btn" class="btn btn-secondary">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mb-4">Welcome, <span id="user-name">Student</span>!</h1>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Total Points</h3>
+                <p style="font-size: 2rem; font-weight: 700; color: var(--primary-color);" id="total-points">0</p>
+            </div>
+            <div class="card">
+                <h3>Modules Completed</h3>
+                <p style="font-size: 2rem; font-weight: 700; color: var(--secondary-color);" id="modules-completed">0
+                </p>
+            </div>
+            <div class="card">
+                <h3>Start Learning</h3>
+                <p class="mb-4">Continue where you left off or start a new module.</p>
+                <a href="modules.html" class="btn btn-primary">Go to Modules</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
