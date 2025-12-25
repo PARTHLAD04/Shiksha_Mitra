@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - GamiLearn</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Gami<span>Learn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Home</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="#" id="logout-btn" style="color: #ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px; display: flex; justify-content: center;">
+        <div class="card" style="width: 100%; max-width: 600px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div
+                    style="width: 100px; height: 100px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 3rem; color: white;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 id="profile-name">User Name</h2>
+                <p id="profile-email" style="color: var(--text-gray);">user@example.com</p>
+                <p id="profile-joined" style="color: var(--text-gray); font-size: 0.9rem; margin-top: 5px;">Joined: Jan
+                    2023</p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--glass-border); margin-bottom: 30px;">
+
+            <h3 style="margin-bottom: 20px;">Edit Details</h3>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <!-- Email usually shouldn't be changeable easily without verification, but allowing for demo -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div id="msg" style="margin-bottom: 15px; font-size: 0.9rem; display: none;"></div>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

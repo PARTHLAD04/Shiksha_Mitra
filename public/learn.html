@@ -4,41 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn - Shiksha Mitra</title>
+    <title>Learn - GamiLearn</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">Shiksha Mitra</div>
-        <div class="nav-links">
-            <a href="dashboard.html" class="nav-link">Dashboard</a>
-            <a href="modules.html" class="nav-link" style="color: var(--primary-color);">Learn</a>
-            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
-            <button onclick="logout()" class="btn btn-secondary">Logout</button>
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Gami<span>Learn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Home</a></li>
+                <li><a href="learn.html" class="active">Learn</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" id="logout-btn" style="color: #ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </ul>
         </div>
     </nav>
 
-    <div class="container">
-        <h1 id="chapter-title" class="mb-4">Loading Chapter...</h1>
+    <div class="container" style="padding-top: 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 id="page-title" style="font-size: 2rem;">Select Subject</h2>
+            <button onclick="window.location.reload()" class="btn btn-outline"
+                style="font-size: 0.9rem; padding: 8px 15px;"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
 
-        <div class="grid" style="grid-template-columns: 2fr 1fr;">
-            <div>
-                <div id="video-container" class="card mb-4">
-                    <!-- Video will be loaded here -->
-                    <p>Loading Video...</p>
-                </div>
-            </div>
-            <div>
-                <div class="card">
-                    <h3>Quiz</h3>
-                    <div id="quiz-container">
-                        <!-- Quiz will be loaded here -->
-                        <p>Loading Quiz...</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Subject Grid -->
+        <div id="subject-grid" class="grid-cards"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <!-- Rendered by JS -->
+            <p>Loading subjects...</p>
+        </div>
+
+        <!-- Class Selection -->
+        <div id="class-selection" class="grid-cards"
+            style="display: none; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Video List -->
+        <div id="video-list" style="display: none;">
+            <!-- Rendered by JS -->
         </div>
     </div>
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GamiLearn</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Login to continue your learning journey</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div id="error-msg" style="color: #ff4d4d; margin-bottom: 15px; display: none; font-size: 0.9rem;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-gray);">
+                Don't have an account? <a href="signup.html" style="color: var(--primary);">Sign Up</a>
+            </p>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-gray);">
+                <a href="../index.html" style="color: var(--text-gray);">Back to Home</a>
+            </p>
+        </div>
+    </div>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+
+</html>

@@ -1,19 +1,26 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    checkAuth();
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
 
-    const userStr = localStorage.getItem('user');
-    const user = JSON.parse(userStr);
-
-    document.getElementById('user-name').textContent = user.name;
-
-    // Load fresh user data for points
-    try {
-        const profile = await fetchAPI('/users/me');
-        document.getElementById('total-points').textContent = profile.totalPoints;
-        document.getElementById('modules-completed').textContent = profile.modulesCompleted;
-    } catch (error) {
-        console.error(error);
+    if (!token || !user) {
+        window.location.href = 'auth/login.html';
+        return;
     }
 
-    document.getElementById('logout-btn').addEventListener('click', logout);
+    // Display User Name
+    const welcomeMsg = document.getElementById('welcome-msg');
+    if (welcomeMsg) {
+        welcomeMsg.textContent = `Welcome, ${user.name}!`;
+    }
+
+    // Logout Functionality
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        });
+    }
 });

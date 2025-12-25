@@ -4,44 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Shiksha Mitra</title>
+    <title>Dashboard - GamiLearn</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">Shiksha Mitra</div>
-        <div class="nav-links">
-            <a href="dashboard.html" class="nav-link" style="color: var(--primary-color);">Dashboard</a>
-            <a href="modules.html" class="nav-link">Learn</a>
-            <a href="leaderboard.html" class="nav-link">Leaderboard</a>
-            <button id="logout-btn" class="btn btn-secondary">Logout</button>
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Gami<span>Learn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="active">Home</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="progress.html">Progress</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" id="logout-btn" style="color: #ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container">
-        <h1 class="mb-4">Welcome, <span id="user-name">Student</span>!</h1>
+    <div class="container" style="padding-top: 40px;">
+        <h2 id="welcome-msg" style="margin-bottom: 30px; font-size: 2rem;">Welcome Back!</h2>
 
-        <div class="grid">
+        <div class="grid-cards"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <!-- Learn Card -->
             <div class="card">
-                <h3>Total Points</h3>
-                <p style="font-size: 2rem; font-weight: 700; color: var(--primary-color);" id="total-points">0</p>
-            </div>
-            <div class="card">
-                <h3>Modules Completed</h3>
-                <p style="font-size: 2rem; font-weight: 700; color: var(--secondary-color);" id="modules-completed">0
-                </p>
-            </div>
-            <div class="card">
+                <div style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;">
+                    <i class="fas fa-book-open"></i>
+                </div>
                 <h3>Start Learning</h3>
-                <p class="mb-4">Continue where you left off or start a new module.</p>
-                <a href="modules.html" class="btn btn-primary">Go to Modules</a>
+                <p style="color: var(--text-gray); margin: 15px 0;">Watch videos for Science, Maths, and more based on
+                    your class.</p>
+                <a href="learn.html" class="btn btn-outline" style="width: 100%; text-align: center;">Go to Classes</a>
+            </div>
+
+            <!-- Lab Card -->
+            <div class="card">
+                <div style="font-size: 3rem; color: #ff4757; margin-bottom: 20px;">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3>Interactive Lab</h3>
+                <p style="color: var(--text-gray); margin: 15px 0;">Practice with virtual experiments and logic games.
+                </p>
+                <a href="lab.html" class="btn btn-outline" style="width: 100%; text-align: center;">Enter Lab</a>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="card">
+                <div style="font-size: 3rem; color: #2ed573; margin-bottom: 20px;">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>My Progress</h3>
+                <p style="color: var(--text-gray); margin: 15px 0;">Track your completed chapters and earned badges.</p>
+                <a href="progress.html" class="btn btn-outline" style="width: 100%; text-align: center;">View Stats</a>
             </div>
         </div>
     </div>
 
-    <script src="js/api.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 

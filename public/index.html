@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiksha Mitra - Learning Platform</title>
+    <title>GamiLearn - Rural Education Platform</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Shiksha Mitra</div>
-        <div class="nav-links">
-            <a href="login.html" class="nav-link">Login</a>
-            <a href="register.html" class="btn btn-primary">Get Started</a>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Gami<span>Learn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="auth/login.html">Login</a></li>
+                <li><a href="auth/signup.html" class="btn btn-primary" style="padding: 8px 20px; color: white;">Get Started</a></li>
+                
+            </ul>
         </div>
     </nav>
 
-    <div class="container">
-        <section class="hero">
-            <h1>Empower Your Learning Journey</h1>
-            <p>Access high-quality educational content for Class 6 to 12. Watch videos, take quizzes, and track your progress.</p>
-            <a href="register.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 0.75rem 1.5rem;">Join Now</a>
-        </section>
+    <header class="hero">
+        <div class="container" style="display: flex; align-items: center;">
+            <div class="hero-content">
+                <h1>Unlock Your Potential with <span style="color: var(--primary);">Gamified Learning</span></h1>
+                <p>An interactive, fun, and simpler way to learn Science and Maths. access classes, labs, and track your progress anytime, anywhere.</p>
+                <div class="cta-buttons">
+                    <a href="auth/signup.html" class="btn btn-primary">Start Learning Now</a>
+                    <a href="#demo" class="btn btn-outline">View Demo</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Using a placeholder image for now, in real scenario would be an illustration -->
+                <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Learning Illustration">
+            </div>
+        </div>
+    </header>
 
-        <section class="grid">
-            <div class="card">
-                <h3>Structured Learning</h3>
-                <p>Curriculum organized by class, subject, and chapter for easy navigation.</p>
-            </div>
-            <div class="card">
-                <h3>Interactive Quizzes</h3>
-                <p>Test your knowledge after every video and earn points for passing.</p>
-            </div>
-            <div class="card">
-                <h3>Track Progress</h3>
-                <p>Visualize your learning journey and compete on the leaderboard.</p>
-            </div>
-        </section>
-    </div>
+    <script src="js/main.js"></script>
 </body>
 </html>

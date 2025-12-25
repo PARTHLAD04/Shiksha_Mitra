@@ -1,23 +1,34 @@
 const mongoose = require('mongoose');
 
-const chapterSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    videoUrl: { type: String, required: true }, // URL to video (e.g., YouTube embed)
-    quiz: [{
-        question: String,
-        options: [String],
-        correctAnswer: Number // Index of correct option
-    }]
+const contentSchema = mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ['video', 'lab'],
+        required: true
+    },
+    subject: {
+        type: String,
+        enum: ['Maths', 'Science'], // Add more subjects as needed
+        required: true
+    },
+    classLevel: {
+        type: Number,
+        required: true
+    },
+    contentUrl: {
+        type: String,
+        required: true // URL to video or simulation page/asset
+    },
+    description: {
+        type: String
+    },
+    thumbnail: {
+        type: String
+    }
 });
 
-const subjectSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    chapters: [chapterSchema]
-});
-
-const classSchema = new mongoose.Schema({
-    level: { type: String, required: true, unique: true }, // e.g., "Class 6"
-    subjects: [subjectSchema]
-});
-
-module.exports = mongoose.model('ClassContent', classSchema);
+module.exports = mongoose.model('Content', contentSchema);

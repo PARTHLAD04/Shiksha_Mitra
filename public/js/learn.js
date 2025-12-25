@@ -1,127 +1,126 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    checkAuth();
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = 'auth/login.html';
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const classId = urlParams.get('classId');
-    const subjectId = urlParams.get('subjectId');
-    const chapterId = urlParams.get('chapterId');
+    const subjectGrid = document.getElementById('subject-grid');
+    const classSelection = document.getElementById('class-selection');
+    const videoList = document.getElementById('video-list');
+    const bcrumb = document.getElementById('bcrumb');
 
-    if (!classId || !subjectId || !chapterId) {
-        window.location.href = 'modules.html';
-        return;
-    }
+    let currentSubject = null;
+    let currentClass = null;
 
-    const videoContainer = document.getElementById('video-container');
-    const quizContainer = document.getElementById('quiz-container');
-    const chapterTitle = document.getElementById('chapter-title');
-
-    let currentChapter = null;
-
+    // Load Subjects
     try {
-        const chapter = await fetchAPI(`/content/${classId}/subjects/${subjectId}/chapters/${chapterId}`);
-        currentChapter = chapter;
-
-        chapterTitle.textContent = chapter.title;
-
-        // Load Video
-        videoContainer.innerHTML = `
-            <iframe width="100%" height="500" src="${chapter.videoUrl}" frameborder="0" allowfullscreen></iframe>
-        `;
-
-        // Mark as watched after 5 seconds (simulation)
-        setTimeout(async () => {
-            try {
-                await fetchAPI('/users/progress', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        classLevel: classId, // Ideally should be name, but using ID for uniqueness in this simple app or need to fetch names. 
-                        // Wait, the progress model expects strings for names. I should probably fetch the class/subject names or just use IDs.
-                        // The prompt says "organized by class levels...". 
-                        // Let's stick to IDs for the API call if the backend supports it, OR I need to pass names.
-                        // Looking at backend: it expects strings. I should probably fetch the names or just send the IDs as strings for now.
-                        // Actually, let's just send the IDs as "names" for simplicity or fetch the parent details.
-                        // To be proper, I should fetch the class and subject details first.
-                        // But for now, let's just use the IDs as the "names" to ensure uniqueness and simplicity.
-                        classLevel: classId,
-                        subjectName: subjectId,
-                        chapterTitle: chapter.title,
-                        type: 'watch'
-                    })
-                });
-                console.log('Video marked as watched');
-            } catch (e) {
-                console.error(e);
-            }
-        }, 5000);
-
-        // Load Quiz
-        renderQuiz(chapter.quiz);
-
+        const subjects = await API.request('/learn/subjects');
+        renderSubjects(subjects);
     } catch (error) {
-        videoContainer.innerHTML = `<p class="error">${error.message}</p>`;
+        console.error(error);
     }
 
-    function renderQuiz(quiz) {
-        if (!quiz || quiz.length === 0) {
-            quizContainer.innerHTML = '<p>No quiz available for this chapter.</p>';
-            return;
-        }
-
-        quizContainer.innerHTML = quiz.map((q, index) => `
-            <div class="card mb-4">
-                <p class="form-label">${index + 1}. ${q.question}</p>
-                ${q.options.map((opt, i) => `
-                    <div style="margin-bottom: 0.5rem;">
-                        <input type="radio" name="q${index}" value="${i}" id="q${index}_${i}">
-                        <label for="q${index}_${i}">${opt}</label>
-                    </div>
-                `).join('')}
+    function renderSubjects(subjects) {
+        subjectGrid.innerHTML = subjects.map(sub => `
+            <div class="card" onclick="selectSubject('${sub.id}', '${sub.name}')" style="cursor: pointer; text-align: center;">
+                <div style="font-size: 3rem; color: ${sub.color}; margin-bottom: 20px;">
+                    <i class="fas ${sub.icon}"></i>
+                </div>
+                <h3>${sub.name}</h3>
             </div>
-        `).join('') + `<button id="submit-quiz" class="btn btn-primary">Submit Quiz</button>`;
-
-        document.getElementById('submit-quiz').addEventListener('click', () => submitQuiz(quiz));
+        `).join('');
     }
 
-    async function submitQuiz(quiz) {
-        let score = 0;
-        let allAnswered = true;
+    window.selectSubject = (id, name) => {
+        currentSubject = { id, name };
+        subjectGrid.style.display = 'none';
+        classSelection.style.display = 'grid';
+        updateH2(`Select Class for ${name}`);
+        updateBreadcrumb(name);
+    }
 
-        quiz.forEach((q, index) => {
-            const selected = document.querySelector(`input[name="q${index}"]:checked`);
-            if (!selected) {
-                allAnswered = false;
-            } else if (parseInt(selected.value) === q.correctAnswer) {
-                score++;
+    // Render Classes (1-10)
+    const classes = Array.from({ length: 10 }, (_, i) => i + 1);
+    classSelection.innerHTML = classes.map(c => `
+        <div class="card" onclick="selectClass(${c})" style="cursor: pointer; text-align: center; padding: 30px;">
+            <h3>Class ${c}</h3>
+        </div>
+    `).join('');
+
+    window.selectClass = async (classId) => {
+        currentClass = classId;
+        classSelection.style.display = 'none';
+        videoList.style.display = 'block';
+        updateH2(`${currentSubject.name} - Class ${classId}`);
+        updateBreadcrumb(currentSubject.name, `Class ${classId}`);
+        await loadVideos();
+    }
+
+    async function loadVideos() {
+        try {
+            const videos = await API.request(`/learn/${currentSubject.id}/${currentClass}`);
+            if (videos.length === 0) {
+                videoList.innerHTML = '<p class="text-center" style="color: var(--text-gray);">No videos available for this class yet.</p>';
+                return;
             }
+            videoList.innerHTML = videos.map(vid => `
+                <div class="video-card card" style="display: flex; gap: 20px; align-items: start; margin-bottom: 20px;">
+                     <iframe width="200" height="120" src="${vid.url}" frameborder="0" allowfullscreen style="border-radius: 10px;"></iframe>
+                     <div style="flex: 1;">
+                        <h3>${vid.title}</h3>
+                        <p style="color: var(--text-gray); margin-bottom: 10px;">Duration: ${vid.duration}</p>
+                        <button class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;" onclick="markComplete('${vid.id}')">
+                            <i class="fas fa-check-circle"></i> Mark as Done
+                        </button>
+                     </div>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    window.markComplete = async (vidId) => {
+        console.log("DataTransfer", vidId)
+        try {
+            const res = await API.request('/learn/complete', 'POST', {
+                contentId: vidId,
+                subject: currentSubject.id,
+                type: 'video'
+            });
+
+            if (res.success) {
+                alert(`Marked video as complete!`);
+                if (res.badges && res.badges.length > 0) {
+                    alert(`Congrats! You earned new badges: ${res.badges.join(', ')}`);
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error updating progress');
+        }
+    }
+
+    function updateH2(text) {
+        document.getElementById('page-title').textContent = text;
+    }
+
+    function updateBreadcrumb(subject, cls) {
+        let html = '<span onclick="reset()" style="cursor: pointer; color: var(--text-gray);">Subjects</span>';
+        if (subject) html += ` / <span style="color: var(--primary);">${subject}</span>`;
+        if (cls) html += ` / <span style="color: var(--primary);">${cls}</span>`;
+        // bcrumb.innerHTML = html; // Optional breadcrumb implementation
+    }
+
+    window.reset = () => {
+        // Simple reload for now to go back
+        window.location.reload();
+    }
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
         });
-
-        if (!allAnswered) {
-            alert('Please answer all questions');
-            return;
-        }
-
-        const passed = score === quiz.length; // Must get all correct? Or just some? Prompt says "If they pass the quiz". Let's say 100% or > 50%.
-        // Let's say > 50%
-        const isPass = (score / quiz.length) >= 0.5;
-
-        if (isPass) {
-            try {
-                await fetchAPI('/users/progress', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        classLevel: classId,
-                        subjectName: subjectId,
-                        chapterTitle: currentChapter.title,
-                        type: 'quiz'
-                    })
-                });
-                alert(`Quiz Passed! You scored ${score}/${quiz.length}. Points added.`);
-                window.location.href = 'dashboard.html';
-            } catch (error) {
-                alert(error.message);
-            }
-        } else {
-            alert(`Quiz Failed. You scored ${score}/${quiz.length}. Try again.`);
-        }
     }
 });

@@ -1,9 +1,9 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const path = require('path');
 
+// Load env vars
 dotenv.config();
 
 // Connect to Database
@@ -13,21 +13,21 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-// Static folder
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from public directory
+app.use(express.static('public'));
 
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/content', require('./routes/contentRoutes'));
+// Routes (Placeholders for now)
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/learn', require('./routes/learn'));
+app.use('/api/lab', require('./routes/lab'));
+app.use('/api/user', require('./routes/user'));
 
-// Serve frontend for any unknown route (SPA-like behavior or just fallback)
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

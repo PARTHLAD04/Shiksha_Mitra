@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please add a name']
@@ -14,18 +14,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a password']
     },
-    role: {
-        type: String,
-        enum: ['student', 'admin'],
-        default: 'student'
-    },
-    totalPoints: {
-        type: Number,
-        default: 0
-    },
-    modulesCompleted: {
-        type: Number,
-        default: 0
+    joinedDate: {
+        type: Date,
+        default: Date.now
     }
 }, {
     timestamps: true

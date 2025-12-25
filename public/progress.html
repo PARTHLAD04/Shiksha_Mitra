@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress - GamiLearn</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                Gami<span>Learn</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Home</a></li>
+                <li><a href="learn.html">Learn</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="progress.html" class="active">Progress</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#" id="logout-btn" style="color: #ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px;">
+        <h2 style="margin-bottom: 30px; font-size: 2rem;">Your Learning Journey</h2>
+
+        <div class="grid-cards"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--text-gray); font-weight: 500;">Videos Watched</h3>
+                <div id="stat-videos" style="font-size: 3rem; color: var(--accent); margin-top: 10px;">0</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--text-gray); font-weight: 500;">Labs Completed</h3>
+                <div id="stat-labs" style="font-size: 3rem; color: #ff4757; margin-top: 10px;">0</div>
+            </div>
+            <div class="card" style="text-align: center;">
+                <h3 style="color: var(--text-gray); font-weight: 500;">Badges Earned</h3>
+                <div id="stat-badges" style="font-size: 3rem; color: #ffa502; margin-top: 10px;">0</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px;">
+            <!-- Subject Progress -->
+            <div class="card">
+                <h3 style="margin-bottom: 20px;">Subject Progress</h3>
+                <div id="media-progress">
+                    <!-- JS Rendered -->
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="card">
+                <h3 style="margin-bottom: 20px;">Your Badges</h3>
+                <div id="badges-list" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <!-- JS Rendered -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/progress.js"></script>
+</body>
+
+</html>
